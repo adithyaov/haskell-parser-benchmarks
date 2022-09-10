@@ -1,4 +1,5 @@
 {
+{-# OPTIONS_GHC -Wno-unused-imports #-}
 module Alex where
 
 import Data.Char (ord)

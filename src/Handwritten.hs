@@ -1,4 +1,6 @@
+{-# LANGUAGE BangPatterns #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StrictData #-}
 
 module Handwritten (parseFile, main, parse, expr, Pos (..)) where
@@ -9,8 +11,9 @@ import Data.ByteString.Char8 qualified as BS
 import Data.Char (isDigit, isSpace, ord)
 import Data.Foldable (traverse_)
 import Data.Word (Word64)
-import Expr
 import System.Environment (getArgs)
+
+import Expr
 
 
 main :: IO ()
