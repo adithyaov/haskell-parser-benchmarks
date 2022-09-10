@@ -1,0 +1,32 @@
+cabal-version:      2.4
+name:               haskell-parsing-benchmarks
+version:            0.1.0.0
+
+author:             Finn Bender
+maintainer:         mailobender77x@gmail.com
+
+library
+      build-depends:    base >=4.16.0.0,
+                        bytestring ^>= 0.11,
+                        attoparsec ^>= 0.14,
+                        array ^>= 0.5,
+      ghc-options:
+      exposed-modules:  Handwritten
+                        Expr
+                        Attoparsec
+                        Alex
+                        Happy
+      hs-source-dirs:   src
+      default-language: GHC2021
+
+
+benchmark lr-calc-bench
+    type:             exitcode-stdio-1.0
+    main-is:          main.hs
+    hs-source-dirs:   bench
+    build-depends:    base >= 4.16.0.0,
+                      tasty-bench ^>= 0.3,
+                      bytestring ^>= 0.11,
+                      haskell-parsing-benchmarks
+    ghc-options:
+    default-language: GHC2021

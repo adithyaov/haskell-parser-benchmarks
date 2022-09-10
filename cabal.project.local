@@ -1,0 +1,3 @@
+ignore-project: False
+optimization: 2
+benchmarks: True
