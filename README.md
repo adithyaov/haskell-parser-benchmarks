@@ -59,10 +59,10 @@ If you want experiment with the different implementations, run
 $ cabal bench --benchmark-options="--csv baseline.csv"
 ```
 
-make the changes you want to make, and then run
+once, then make the changes you want to make, and then run
 
 ```sh
 $ cabal bench --benchmark-options="--baseline baseline.csv"
 ```
 
-to see how much the performance changed.
+to see how much the performance has changed.
