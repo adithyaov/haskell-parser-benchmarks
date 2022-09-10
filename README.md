@@ -41,11 +41,11 @@ part of the parser.
 
 | Parser      | Time      | Factor |
 |:----------- |:--------- |:------ |
-| Handwritten | 192  ms   | 1.00   |
-| Attoparsec  | 337  ms   | 1.75   |
-| Alex/Happy  | 1.03 s    | 5.36   |
+| Handwritten | 204  ms   | 1.00x  |
+| Attoparsec  | 302  ms   | 1.48x  |
+| Alex/Happy  | 966  ms   | 4.73x  |
 
-The benchmark was compiled with GHC 9.4.2, without a threaded runtime
+The benchmark was compiled with GHC 9.2.1, without a threaded runtime
 or the LLVM code generator, but with `-O2`.
 
 ## Running it yourself
