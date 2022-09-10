@@ -56,7 +56,7 @@ or the LLVM code generator, but with `-O2`.
 
 _Attoparsec_ and _Megaparsec_ benefit greatly from the `Strict`
 GHC extension, as they run twice as fast. The handwritten parser
-performs best with `StrictData`. All implementations suffer from atleast a
+performs best with `StrictData`. All implementations suffer from at least a
 2x slowdown when compiled with `-threaded` and run with `+RTS
 -N`.
 
