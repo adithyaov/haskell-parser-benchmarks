@@ -39,14 +39,14 @@ part of the parser.
 
 ## Results
 
-The benchmark was compiled with GHC 9.4.2, without a threaded runtime
-or the LLVM code generator, but with `-O2`.
-
 | Parser      | Time      | Factor |
 |:----------- |:--------- |:------ |
 | Handwritten | 192  ms   | 1.00   |
 | Attoparsec  | 337  ms   | 1.75   |
 | Alex/Happy  | 1.03 s    | 5.36   |
+
+The benchmark was compiled with GHC 9.4.2, without a threaded runtime
+or the LLVM code generator, but with `-O2`.
 
 ## Running it yourself
 ```sh
