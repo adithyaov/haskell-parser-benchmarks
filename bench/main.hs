@@ -8,6 +8,7 @@ import Data.Maybe (fromJust)
 import Expr
 import Handwritten qualified
 import Happy qualified
+import Megaparsec qualified
 import Test.Tasty.Bench
 
 
@@ -20,9 +21,10 @@ bigExample :: Benchmark
 bigExample =
     bgroup
         "big-example.txt"
-        [ makeBench "handwritten" Handwritten.parseFile
-        , bcompare "handwritten" $ makeBench "attoparsec" Attoparsec.parseFile
-        , bcompare "handwritten" $ makeBench "alex-happy" Happy.parseFile
+        [ makeBench "Handwritten (ByteString)" Handwritten.parseFile
+        , bcompare "Handwritten" $ makeBench "Attoparsec (ByteString)" Attoparsec.parseFile
+        , bcompare "Handwritten" $ makeBench "Megaparsec (Text)" Megaparsec.parseFile
+        , bcompare "Handwritten" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
         ]
     where
         makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark

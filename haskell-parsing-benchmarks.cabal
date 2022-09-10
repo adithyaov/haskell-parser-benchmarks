@@ -9,12 +9,15 @@ library
       build-depends:    base >=4.16.0.0,
                         bytestring ^>= 0.11,
                         attoparsec ^>= 0.14,
+                        megaparsec ^>= 9.2,
+                        text ^>= 2.0,
                         array ^>= 0.5,
       ghc-options:      -Wall
                         -Wextra
       exposed-modules:  Handwritten
                         Expr
                         Attoparsec
+                        Megaparsec
                         Alex
                         Happy
       hs-source-dirs:   src
