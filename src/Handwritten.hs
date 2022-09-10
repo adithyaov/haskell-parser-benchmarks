@@ -1,10 +1,10 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE StrictData #-}
 
-module Handwritten (parseFile, main, parse, expr) where
+module Handwritten (parseFile, main, parse, expr, Pos (..)) where
 
 import Control.Exception (evaluate)
-import Control.Monad (MonadPlus, ap, when, (>=>))
+import Control.Monad ((>=>))
 import Data.ByteString.Char8 qualified as BS
 import Data.Char (isDigit, isSpace, ord)
 import Data.Foldable (traverse_)
@@ -28,7 +28,6 @@ data Token
     | TParBeg
     | TParEnd
     | TEndOfFile
-    deriving (Show)
 
 
 data LexerState
@@ -48,7 +47,7 @@ incLine :: Pos -> Pos
 incLine (Pos l c) = Pos (l + 1) c
 
 
-incColumnBy :: Integral a => a -> Pos -> Pos
+incColumnBy :: Int -> Pos -> Pos
 incColumnBy dc (Pos l c) = Pos l (c + fromIntegral dc)
 
 
@@ -58,25 +57,25 @@ nextTok pos input =
     let (ws, rest) = BS.span isSpace input
         pos' = BS.foldl' updatePos pos ws
      in case BS.uncons rest of
-            Nothing -> Just $ S TEndOfFile pos BS.empty
-            Just (c, rest) -> case c of
-                '+' -> Just $ S (TOp Add) (incColumnBy 1 pos) rest
-                '-' -> Just $ S (TOp Sub) (incColumnBy 1 pos) rest
-                '*' -> Just $ S (TOp Mul) (incColumnBy 1 pos) rest
-                '/' -> Just $ S (TOp Div) (incColumnBy 1 pos) rest
-                '(' -> Just $ S (TParBeg) (incColumnBy 1 pos) rest
-                ')' -> Just $ S (TParEnd) (incColumnBy 1 pos) rest
-                _ | isDigit c -> lexNum rest $ digit c
+            Nothing -> Just $ S TEndOfFile pos' BS.empty
+            Just (c, rest') -> case c of
+                '+' -> Just $ S (TOp Add) (incColumnBy 1 pos') rest'
+                '-' -> Just $ S (TOp Sub) (incColumnBy 1 pos') rest'
+                '*' -> Just $ S (TOp Mul) (incColumnBy 1 pos') rest'
+                '/' -> Just $ S (TOp Div) (incColumnBy 1 pos') rest'
+                '(' -> Just $ S (TParBeg) (incColumnBy 1 pos') rest'
+                ')' -> Just $ S (TParEnd) (incColumnBy 1 pos') rest'
+                _ | isDigit c -> lexNum pos' rest' $ digit c
                 _ -> Nothing
     where
-        lexNum input n =
-            let (num_str, rest) = BS.span isDigit input
-                num = BS.foldl' (\n c -> 10 * n + digit c) n num_str
-             in Just $ S (TInt num) (incColumnBy (1 + BS.length num_str) pos) rest
+        lexNum pos' input' n =
+            let (num_str, rest) = BS.span isDigit input'
+                num = BS.foldl' (\k c -> 10 * k + digit c) n num_str
+             in Just $ S (TInt num) (incColumnBy (1 + BS.length num_str) pos') rest
 
         digit c = fromIntegral $ ord c - ord '0'
         updatePos p '\n' = incLine p
-        updatePos p _ = incColumnBy 1 p
+        updatePos p _ = incColumnBy (1 :: Int) p
 
 
 newtype Lexer a
@@ -119,7 +118,7 @@ instance Monad Lexer where
 
 instance Applicative Lexer where
     {-# INLINE pure #-}
-    pure a = Lexer $ \s r g -> g s a
+    pure a = Lexer $ \s _ g -> g s a
 
 
     {-# INLINE (<*>) #-}
@@ -178,12 +177,12 @@ sum' = go
         go !l =
             peek >>= \case
                 TOp Add -> do
-                    pop
+                    _ <- pop
                     a <- atom
                     r <- prod a
                     go $ Bin Add l r
                 TOp Sub -> do
-                    pop
+                    _ <- pop
                     a <- atom
                     r <- prod a
                     go $ Bin Sub l r
@@ -196,11 +195,11 @@ prod = go
         go !l =
             peek >>= \case
                 TOp Mul -> do
-                    pop
+                    _ <- pop
                     r <- atom
                     go $ Bin Mul l r
                 TOp Div -> do
-                    pop
+                    _ <- pop
                     r <- atom
                     go $ Bin Div l r
                 _ -> pure l

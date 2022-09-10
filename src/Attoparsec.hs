@@ -4,10 +4,9 @@
 module Attoparsec where
 
 import Control.Applicative
-import Control.Monad
 import Data.Attoparsec.ByteString.Char8 hiding (isSpace)
 import Data.ByteString qualified as BS
-import Data.Char
+import Data.Char (isSpace)
 import Data.Function ((&))
 
 import Expr

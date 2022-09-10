@@ -1,4 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE StrictData #-}
 
 module Expr where
@@ -10,7 +9,6 @@ data Expr
     = Bin Op Expr Expr
     | Num Word64
     | Negate Expr
-    deriving (Show)
 
 
 data Op
@@ -18,4 +16,3 @@ data Op
     | Sub
     | Mul
     | Div
-    deriving (Show)
