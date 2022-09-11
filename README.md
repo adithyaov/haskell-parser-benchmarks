@@ -50,7 +50,7 @@ part of the parser.
 | Parser                  | Time      | Factor |
 |:----------------------- | ---------:| ------:|
 | Handwritten             | 200  ms   | 1.00x  |
-| FlatParse (ByteString)  | 330  ms   | 1.65x  |
+| Flatparse               | 330  ms   | 1.65x  |
 | Attoparsec (ByteString) | 280  ms   | 1.40x  |
 | Attoparsec (Text)       | 357  ms   | 1.79x  |
 | Megaparsec (ByteString) | 410  ms   | 2.06x  |
