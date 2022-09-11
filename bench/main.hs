@@ -2,14 +2,16 @@
 
 module Main where
 
-import Attoparsec qualified
-import Data.ByteString qualified as BS
 import Data.Maybe (fromJust)
 import Expr
+import Test.Tasty.Bench
+
+import Attoparsec.ByteString qualified
+import Attoparsec.Text qualified
 import Handwritten qualified
 import Happy qualified
-import Megaparsec qualified
-import Test.Tasty.Bench
+import Megaparsec.ByteString qualified
+import Megaparsec.Text qualified
 
 
 main :: IO ()
@@ -22,8 +24,10 @@ bigExample =
     bgroup
         "big-example.txt"
         [ makeBench "Handwritten (ByteString)" Handwritten.parseFile
-        , bcompare "Handwritten" $ makeBench "Attoparsec (ByteString)" Attoparsec.parseFile
-        , bcompare "Handwritten" $ makeBench "Megaparsec (Text)" Megaparsec.parseFile
+        , bcompare "Handwritten" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
+        , bcompare "Handwritten" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
+        , bcompare "Handwritten" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
+        , bcompare "Handwritten" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
         , bcompare "Handwritten" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
         ]
     where

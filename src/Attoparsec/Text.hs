@@ -1,13 +1,13 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Attoparsec where
+module Attoparsec.Text where
 
 import Control.Applicative
-import Data.Attoparsec.ByteString.Char8 hiding (isSpace)
-import Data.ByteString qualified as BS
+import Data.Attoparsec.Text
 import Data.Char (isSpace)
 import Data.Function ((&))
+import Data.Text.IO qualified as T
 
 import Expr
 
@@ -50,7 +50,7 @@ chainl1 p op = p >>= go
 
 parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
-    content <- BS.readFile filepath
+    content <- T.readFile filepath
     pure $
         parseOnly expr content & \case
             Left _ -> Nothing

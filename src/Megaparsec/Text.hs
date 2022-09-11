@@ -1,12 +1,13 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Megaparsec where
+module Megaparsec.Text where
 
 import Control.Applicative
 import Data.Char (isSpace)
 import Data.Text qualified as T
 import Data.Text.IO qualified as T
+import Data.Void (Void)
 
 import Text.Megaparsec
 import Text.Megaparsec.Char (char)
@@ -15,7 +16,7 @@ import Text.Megaparsec.Char.Lexer (decimal)
 import Expr
 
 
-type Parser = Parsec () T.Text
+type Parser = Parsec Void T.Text
 
 
 {-# INLINE expr #-}

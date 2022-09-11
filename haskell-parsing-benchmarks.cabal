@@ -16,8 +16,10 @@ library
                         -Wextra
       exposed-modules:  Handwritten
                         Expr
-                        Attoparsec
-                        Megaparsec
+                        Attoparsec.ByteString
+                        Attoparsec.Text
+                        Megaparsec.Text
+                        Megaparsec.ByteString
                         Alex
                         Happy
       hs-source-dirs:   src
