@@ -24,13 +24,13 @@ bigExample :: Benchmark
 bigExample =
     bgroup
         "big-example.txt"
-        [ makeBench "Handwritten (ByteString)" Handwritten.parseFile
-        , bcompare "Handwritten" $ makeBench "FlatParse (ByteString)" FlatParse.parseFile
-        , bcompare "Handwritten" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
-        , bcompare "Handwritten" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
-        , bcompare "Handwritten" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
-        , bcompare "Handwritten" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
-        , bcompare "Handwritten" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
+        [ makeBench "Flatparse (ByteString)" FlatParse.parseFile
+        , bcompare "Flatparse" $ makeBench "Handwritten (ByteString)" Handwritten.parseFile
+        , bcompare "Flatparse" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
+        , bcompare "Flatparse" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
+        , bcompare "Flatparse" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
+        , bcompare "Flatparse" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
+        , bcompare "Flatparse" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
         ]
     where
         makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark

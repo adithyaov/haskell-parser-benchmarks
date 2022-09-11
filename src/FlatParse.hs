@@ -1,4 +1,5 @@
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE Strict #-}
 {-# LANGUAGE TemplateHaskell #-}
 
 module FlatParse where

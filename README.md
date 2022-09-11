@@ -49,20 +49,20 @@ part of the parser.
 
 | Parser                  | Time      | Factor |
 |:----------------------- | ---------:| ------:|
-| Handwritten             | 200  ms   | 1.00x  |
-| Flatparse               | 330  ms   | 1.65x  |
-| Attoparsec (ByteString) | 280  ms   | 1.40x  |
-| Attoparsec (Text)       | 357  ms   | 1.79x  |
-| Megaparsec (ByteString) | 410  ms   | 2.06x  |
-| Megaparsec (Text)       | 568  ms   | 2.85x  |
-| Alex/Happy              | 986  ms   | 4.94x  |
+| Flatparse               | 178  ms   | 1.00x  |
+| Handwritten             | 189  ms   | 1.06x  |
+| Attoparsec (ByteString) | 281  ms   | 1.58x  |
+| Attoparsec (Text)       | 359  ms   | 2.02x  |
+| Megaparsec (ByteString) | 431  ms   | 2.42x  |
+| Megaparsec (Text)       | 608  ms   | 3.42x  |
+| Alex/Happy              | 997  ms   | 5.61x  |
 
 The benchmark was compiled with GHC 9.2.1, without a threaded runtime
 or the LLVM code generator, but with `-O2`.
 
 ## Observations
 
-_Attoparsec_ and _Megaparsec_ benefit greatly from the `Strict` GHC
+_Flatparse_, _Attoparsec_, and _Megaparsec_ benefit greatly from the `Strict` GHC
 extension, as they run twice as fast. The handwritten parser performs
 best with `StrictData`. All implementations suffer from at least a 2x
 slowdown when compiled with `-threaded` and run with `+RTS -N`.
