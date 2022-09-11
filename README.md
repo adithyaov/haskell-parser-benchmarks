@@ -13,7 +13,7 @@ PROD  = PROD '*' number
       | number
 ```
 
-There are four parsers implemented right now:
+There are five parsers implemented right now:
 - __Handwritten__: The parser is implemented using a CPS monad (called
   `Lexer`), managing the remaining input, the next token, the source
   position, and the failure state. Even though the source position is

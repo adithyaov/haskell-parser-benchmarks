@@ -38,6 +38,6 @@ benchmark haskell-parsing-benchmarks
                       bytestring ^>= 0.11,
                       text ^>= 2.0,
                       haskell-parsing-benchmarks
-    ghc-options:
+    ghc-options:      -rtsopts
     default-language: Haskell2010
     default-extensions: ImportQualifiedPost
