@@ -68,10 +68,6 @@ or the LLVM code generator, but with `-O2`.
 
 ## Notes
 
-While _Flatparse_ performs best, even outperforming a handwritten
-parser, it comes at a cost: The source position is only reported as an
-integer offset from the beginning of the file, not as line and column.
-
 _Flatparse_, _Attoparsec_, and _Megaparsec_ benefit greatly from the
 `Strict` GHC extension, as they run twice as fast. The handwritten
 parser performs best with `StrictData`. All implementations suffer
