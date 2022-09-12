@@ -16,6 +16,8 @@ import qualified Data.ByteString.Lazy as BS
     '-' { TOp Sub }
     '*' { TOp Mul }
     '/' { TOp Div }
+    '(' { TParBeg }
+    ')' { TParEnd }
     num { TNum $$ }
 
 
@@ -27,6 +29,7 @@ Expr : Expr '+' Expr  { Bin Add $1 $3 }
      | Expr '-' Expr  { Bin Sub $1 $3 }
      | Expr '*' Expr  { Bin Mul $1 $3 }
      | Expr '/' Expr  { Bin Div $1 $3 }
+     | '(' Expr ')'   { $2 }
      | num            { Num $1 }
 
 {

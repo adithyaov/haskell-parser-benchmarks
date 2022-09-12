@@ -35,7 +35,9 @@ prod = chainl1 atom (Bin <$> op)
 
 {-# INLINE atom #-}
 atom :: Parser Expr
-atom = lexeme $ Num <$> decimal
+atom =
+    Num <$> lexeme decimal
+        <|> lexeme (char '(') *> expr <* lexeme (char ')')
 
 
 {-# INLINE lexeme #-}

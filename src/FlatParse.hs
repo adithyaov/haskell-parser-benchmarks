@@ -32,7 +32,9 @@ prod = chainl1 atom (Bin <$> op)
 
 {-# INLINE atom #-}
 atom :: Parser Expr
-atom = lexeme $ Num . fromIntegral <$> F.readInt
+atom =
+    (Num . fromIntegral <$> lexeme F.readInt)
+        F.<|> (lexeme $(F.char '(') *> expr <* lexeme $(F.char ')'))
 
 
 {-# INLINE lexeme #-}

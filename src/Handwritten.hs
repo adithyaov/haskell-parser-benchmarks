@@ -7,7 +7,7 @@
 module Handwritten (parseFile, parse, expr, Pos (..)) where
 
 import Data.ByteString.Char8 qualified as BS
-import Data.Char (isDigit, isSpace, ord)
+import Data.Char (isDigit, ord)
 import Data.Word (Word64)
 
 import Expr
@@ -28,6 +28,8 @@ data Token where
 data TokenTag a where
     TInt :: TokenTag Word64
     TOp :: TokenTag Op
+    TParBeg :: TokenTag ()
+    TParEnd :: TokenTag ()
     TEndOfFile :: TokenTag ()
 
 
@@ -107,6 +109,10 @@ instance Functor Lexer where
     fmap f m = Lexer $ \r s g -> unLexer m r s (\s' -> g s' . f)
 
 
+instance MonadFail Lexer where
+    fail _ = empty
+
+
 {-# INLINE empty #-}
 empty :: Lexer a
 empty = Lexer $ \s r _ -> r s
@@ -131,11 +137,14 @@ popToken s@(S t@(T _ _ p) b) err ok = go p b
             Just (c, cs) ->
                 let pos' = updatePos c pos
                  in case c of
-                        _ | isSpace c -> go pos' cs
                         '+' -> ok (S (T TOp Add pos') cs) t
                         '-' -> ok (S (T TOp Sub pos') cs) t
                         '*' -> ok (S (T TOp Mul pos') cs) t
                         '/' -> ok (S (T TOp Div pos') cs) t
+                        '(' -> ok (S (T TParBeg () pos') cs) t
+                        ')' -> ok (S (T TParEnd () pos') cs) t
+                        ' ' -> go pos' cs
+                        '\n' -> go pos' cs
                         _ | isDigit c -> goNum pos' cs $ digit c
                         _ -> err s
         goNum pos bs n = case BS.uncons bs of
@@ -164,6 +173,10 @@ atom :: Lexer Expr
 atom =
     pop >>= \case
         T TInt n _ -> pure $ Num n
+        T TParBeg _ _ -> do
+            e <- expr
+            T TParEnd _ _ <- pop
+            pure e
         _ -> empty
 
 

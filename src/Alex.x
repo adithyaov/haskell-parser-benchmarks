@@ -18,12 +18,16 @@ token :-
   \-           { \_ -> TOp Sub }
   \*           { \_ -> TOp Mul }
   \/           { \_ -> TOp Div }
+  \(           { \_ -> TParBeg }
+  \)           { \_ -> TParEnd }
   $digit+      { TNum . BS.foldl' (\n c -> 10 * n + digit c) 0 }
 
 
 {
 data Token
   = TOp !Op
+  | TParBeg
+  | TParEnd
   | TNum !Word64
 
 digit :: Char -> Word64
