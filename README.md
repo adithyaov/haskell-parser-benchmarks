@@ -17,11 +17,10 @@ ATOM  = integer
 ```
 
 There are five parsers implemented right now:
-- __Handwritten__: The parser is implemented using a CPS monad (called
-  `Lexer`), managing the remaining input, the next token, the source
-  position, and the failure state. Even though the source position is
-  not used in this example, it is still computed because it's a very
-  common requirement for a parser. Only ByteString is supported.
+- __Handwritten__: A handwritten lexer and recursive ascent parser. Even though
+  the source position is not used in this example, it is still
+  computed because it's a very common requirement for a parser. Only
+  ByteString is supported.
 
 - __Attoparsec__: A parser using the parser combinator library
   [_Attoparsec_](https://hackage.haskell.org/package/attoparsec). ByteString
