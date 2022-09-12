@@ -1,6 +1,6 @@
 {
 {-# OPTIONS_GHC -Wno-unused-imports #-}
-module Alex where
+module Alex (alexScanTokens, Token(..)) where
 
 import Data.Char (ord)
 import Data.Word

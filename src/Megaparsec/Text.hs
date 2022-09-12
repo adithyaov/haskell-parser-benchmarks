@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Megaparsec.Text where
+module Megaparsec.Text (parseFile) where
 
 import Control.Applicative
 import Data.Char (isSpace)

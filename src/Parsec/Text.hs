@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Parsec.Text where
+module Parsec.Text (parseFile) where
 
 import Control.Applicative
 import Control.Monad (void)

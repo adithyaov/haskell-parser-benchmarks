@@ -57,15 +57,15 @@ part of the parser.
 
 | Parser                  | Time      | Factor | Memory allocated |
 |:----------------------- | ---------:| ------:| ----------------:|
-| Flatparse               | 206  ms   | 1.00x  | 78 MB            |
-| Handwritten             | 221  ms   | 1.07x  | 292 MB           |
-| Attoparsec (ByteString) | 366  ms   | 1.78x  | 1.3 GB           |
-| Attoparsec (Text)       | 461  ms   | 2.24x  | 1.2 GB           |
-| Megaparsec (ByteString) | 541  ms   | 2.63x  | 2.3 GB           |
-| Megaparsec (Text)       | 760  ms   | 3.69x  | 3.0 GB           |
-| Alex/Happy              | 1.13  s   | 5.48x  | 2.4 GB           |
-| Parsec (ByteString)     | 2.32  s   | 11.30x | 7.6 GB           |
-| Parsec (Text)           | 2.75  s   | 13.36x | 7.6 GB           |
+| Flatparse               | 202  ms   | 1.00x  | 78 MB            |
+| Handwritten             | 221  ms   | 1.10x  | 292 MB           |
+| Attoparsec (ByteString) | 363  ms   | 1.80x  | 1.3 GB           |
+| Attoparsec (Text)       | 470  ms   | 2.33x  | 1.3 GB           |
+| Megaparsec (ByteString) | 536  ms   | 2.65x  | 2.3 GB           |
+| Megaparsec (Text)       | 758  ms   | 3.75x  | 3.0 GB           |
+| Alex/Happy              | 858  ms   | 4.25x  | 1.6 GB           |
+| Parsec (ByteString)     | 2.28  s   | 11.33x | 7.6 GB           |
+| Parsec (Text)           | 2.30  s   | 11.39x | 7.6 GB           |
 
 _Note: Memory allocated is not peak memory consumption, since it does
 not decrease, when memory is freed._

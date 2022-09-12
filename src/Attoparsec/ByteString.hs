@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Attoparsec.ByteString where
+module Attoparsec.ByteString (parseFile) where
 
 import Control.Applicative
 import Data.Attoparsec.ByteString.Char8 hiding (isSpace)

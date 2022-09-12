@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Megaparsec.ByteString where
+module Megaparsec.ByteString (parseFile) where
 
 import Control.Applicative
 import Control.Monad (void)

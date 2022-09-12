@@ -1,7 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Attoparsec.Text where
+module Attoparsec.Text (parseFile) where
 
 import Control.Applicative
 import Data.Attoparsec.Text

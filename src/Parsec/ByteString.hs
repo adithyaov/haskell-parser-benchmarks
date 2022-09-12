@@ -1,6 +1,6 @@
 {-# LANGUAGE Strict #-}
 
-module Parsec.ByteString where
+module Parsec.ByteString (parseFile) where
 
 import Control.Applicative
 import Control.Monad (void)

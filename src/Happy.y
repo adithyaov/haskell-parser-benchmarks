@@ -1,5 +1,5 @@
 {
-module Happy where
+module Happy (parseFile) where
 
 import Expr
 import Alex

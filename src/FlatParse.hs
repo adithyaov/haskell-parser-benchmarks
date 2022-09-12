@@ -2,7 +2,7 @@
 {-# LANGUAGE Strict #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module FlatParse where
+module FlatParse (parseFile) where
 
 import Data.ByteString qualified as BS
 import Data.Char (isSpace)
