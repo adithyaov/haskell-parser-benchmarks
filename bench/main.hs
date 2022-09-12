@@ -15,6 +15,7 @@ import Megaparsec.ByteString qualified
 import Megaparsec.Text qualified
 import Parsec.ByteString qualified
 import Parsec.Text qualified
+import UUParsingLib qualified
 
 
 main :: IO ()
@@ -35,6 +36,7 @@ bigExample =
         , bcompare "Flatparse" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
         , bcompare "Flatparse" $ makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Parsec (Text)" Parsec.Text.parseFile
+        , bcompare "Flatparse" $ makeBench "UU Parsing Lib (Text)" UUParsingLib.parseFile
         ]
     where
         makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark
