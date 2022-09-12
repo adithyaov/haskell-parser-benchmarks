@@ -14,7 +14,9 @@ library
                         text ^>= 2.0,
                         array ^>= 0.5,
                         flatparse ^>= 0.3,
-                        uu-parsinglib ^>= 2.9.2
+                        uu-parsinglib ^>= 2.9.2,
+                        Earley ^>= 0.13,
+                        ListLike ^>= 4.7,
       ghc-options:      -Wall
                         -Wextra
       exposed-modules:  Handwritten
@@ -29,6 +31,7 @@ library
                         Alex
                         Happy
                         UUParsingLib
+                        Earley
       hs-source-dirs:   src
       default-language: Haskell2010
       default-extensions: ImportQualifiedPost
