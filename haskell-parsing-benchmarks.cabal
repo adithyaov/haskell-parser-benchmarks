@@ -8,6 +8,7 @@ maintainer:         mailobender77x@gmail.com
 library
       build-depends:    base >=4.16.0.0,
                         bytestring ^>= 0.11,
+                        parsec ^>= 3.1,
                         attoparsec ^>= 0.14,
                         megaparsec ^>= 9.2,
                         text ^>= 2.0,
@@ -21,6 +22,8 @@ library
                         Attoparsec.Text
                         Megaparsec.Text
                         Megaparsec.ByteString
+                        Parsec.Text
+                        Parsec.ByteString
                         FlatParse
                         Alex
                         Happy

@@ -13,6 +13,8 @@ import Handwritten qualified
 import Happy qualified
 import Megaparsec.ByteString qualified
 import Megaparsec.Text qualified
+import Parsec.ByteString qualified
+import Parsec.Text qualified
 
 
 main :: IO ()
@@ -31,6 +33,8 @@ bigExample =
         , bcompare "Flatparse" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
         , bcompare "Flatparse" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
+        , bcompare "Flatparse" $ makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
+        , bcompare "Flatparse" $ makeBench "Parsec (Text)" Parsec.Text.parseFile
         ]
     where
         makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark
