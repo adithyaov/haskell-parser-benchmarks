@@ -7,7 +7,9 @@ import Alex
 import qualified Data.ByteString.Lazy as BS
 }
 
-%name parse
+%name parser
+%lexer { token } { TEndOfFile }
+%monad { Alex }
 %tokentype { Token }
 %error { parseError }
 
@@ -33,11 +35,18 @@ Expr : Expr '+' Expr  { Bin Add $1 $3 }
      | num            { Num $1 }
 
 {
+
+{-# INLINE token #-}
+token :: (Token -> Alex a) -> Alex a
+token = (alexMonadScan >>=)
+
 parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
   contents <- BS.readFile filepath
-  let toks = alexScanTokens contents
-  pure $ Just $ parse toks
+  pure $ case runAlex contents parser of
+    Left _ -> Nothing
+    Right ans -> Just ans
 
-parseError = error "parse error"
+parseError :: Token -> Alex a
+parseError _ = alexError "parse error"
 }

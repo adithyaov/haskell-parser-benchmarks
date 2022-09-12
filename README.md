@@ -67,7 +67,7 @@ part of the parser.
 | Attoparsec (Text)           | 470  ms   | 2.33x  | 1.3 GB           |
 | Megaparsec (ByteString)     | 536  ms   | 2.65x  | 2.3 GB           |
 | Megaparsec (Text)           | 758  ms   | 3.75x  | 3.0 GB           |
-| Alex/Happy                  | 858  ms   | 4.25x  | 1.6 GB           |
+| Alex/Happy                  | 1.00  s   | 4.96x  | 2.8 GB           |
 | Parsec (ByteString)         | 2.28  s   | 11.33x | 7.6 GB           |
 | Parsec (Text)               | 2.30  s   | 11.39x | 7.6 GB           |
 | UU Parsing Lib (ByteString) | 4.10  s   | 20.09x | 5.5 GB           |
