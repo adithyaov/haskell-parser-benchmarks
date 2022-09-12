@@ -16,7 +16,7 @@ ATOM  = integer
       | '(' SUM ')'
 ```
 
-There are five parsers implemented right now:
+The following parsers are implemented right now:
 - __Handwritten__: A handwritten lexer and recursive ascent parser. Even though
   the source position is not used in this example, it is still
   computed because it's a very common requirement for a parser. Only
@@ -114,6 +114,6 @@ to see how much the performance has changed.
 
 ## Credits
 
-| Name            | Constribution                  |
+| Name            | Contribution                   |
 |:--------------- |:------------------------------ |
 | Jaro Reinders   | UU Parsing Lib benchmark       |
