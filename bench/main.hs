@@ -15,6 +15,8 @@ import Megaparsec.ByteString qualified
 import Megaparsec.Text qualified
 import Parsec.ByteString qualified
 import Parsec.Text qualified
+import Parsley.ByteString qualified
+import Parsley.Text qualified
 import UUParsingLib qualified
 
 
@@ -31,6 +33,8 @@ bigExample =
         , bcompare "Flatparse" $ makeBench "Handwritten (ByteString)" Handwritten.parseFile
         , bcompare "Flatparse" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
+        , bcompare "Flatparse" $ makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
+        , bcompare "Flatparse" $ makeBench "Parsley (Text)" Parsley.Text.parseFile
         , bcompare "Flatparse" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
         , bcompare "Flatparse" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile

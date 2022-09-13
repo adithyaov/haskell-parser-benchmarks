@@ -6,17 +6,18 @@ author:             Finn Bender
 maintainer:         mailobender77x@gmail.com
 
 library
-      build-depends:    base >=4.16.0.0,
+      build-depends:    base >=4.15.0.0,
                         bytestring ^>= 0.11,
                         parsec ^>= 3.1,
                         attoparsec ^>= 0.14,
                         megaparsec ^>= 9.2,
-                        text ^>= 2.0,
+                        text,
                         array ^>= 0.5,
                         flatparse ^>= 0.3,
                         uu-parsinglib ^>= 2.9.2,
                         Earley ^>= 0.13,
                         ListLike ^>= 4.7,
+                        parsley ^>= 2.0,
       ghc-options:      -Wall
                         -Wextra
       exposed-modules:  Handwritten
@@ -32,6 +33,9 @@ library
                         Happy
                         UUParsingLib
                         Earley
+                        Parsley.Parser
+                        Parsley.Text
+                        Parsley.ByteString
       hs-source-dirs:   src
       default-language: Haskell2010
       default-extensions: ImportQualifiedPost
@@ -43,8 +47,6 @@ benchmark haskell-parsing-benchmarks
     hs-source-dirs:   bench
     build-depends:    base >= 4.16.0.0,
                       tasty-bench ^>= 0.3,
-                      bytestring ^>= 0.11,
-                      text ^>= 2.0,
                       haskell-parsing-benchmarks
     ghc-options:      -rtsopts
     default-language: Haskell2010
