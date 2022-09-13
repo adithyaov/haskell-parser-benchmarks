@@ -20,6 +20,7 @@ library
                         parsley ^>= 2.0,
       ghc-options:      -Wall
                         -Wextra
+      build-tools:      alex, happy
       exposed-modules:  Handwritten
                         Expr
                         Attoparsec.ByteString
