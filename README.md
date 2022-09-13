@@ -74,7 +74,7 @@ part of the parser.
 | Attoparsec (Text)           | 392  ms   | 1.88x  | 1.3 GB           |
 | Megaparsec (ByteString)     | 471  ms   | 2.26x  | 2.3 GB           |
 | Megaparsec (Text)           | 620  ms   | 2.98x  | 3.0 GB           |
-| Alex/Happy                  | 924  ms   | 4.43x  | 2.8 GB           |
+| Alex/Happy                  | 665  ms   | 3.20x  | 2.8 GB           |
 | Parsec (ByteString)         | 1.50  s   | 7.24x  | 6.4 GB           |
 | Parsec (Text)               | 1.52  s   | 7.30x  | 6.4 GB           |
 | UU Parsing Lib (ByteString) | 3.81  s   | 18.28x | 5.5 GB           |
@@ -89,10 +89,12 @@ or the LLVM code generator, but with `-O2`.
 ## Notes
 
 _Flatparse_, _Attoparsec_, _Megaparsec_, and _Parsley_ benefit greatly
-from the `Strict` GHC extension, as they run twice as fast. _Parsec_
-is not affected by `Strict`. The handwritten parser performs best with
-`StrictData`. All implementations suffer from at least a 2x slowdown
-when compiled with `-threaded` and run with `+RTS -N`.
+from the `Strict` GHC extension, as they run twice as fast. Generating
+the happy parser with `--strict` improves its performance by
+25%. Using an explicit export list gave another 25% speedup. The
+handwritten parser performs best with `StrictData`. All
+implementations suffer from at least a 2x slowdown when compiled with
+`-threaded` and run with `+RTS -N`.
 
 I did try benchmarking
 [Earley](https://hackage.haskell.org/package/Earley), but on a file

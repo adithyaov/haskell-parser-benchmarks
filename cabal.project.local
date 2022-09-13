@@ -1,5 +1,0 @@
-ignore-project: False
-optimization: 2
-benchmarks: True
-
-constraints:      flatparse +llvm,

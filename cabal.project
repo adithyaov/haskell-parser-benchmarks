@@ -1,0 +1,9 @@
+packages: *.cabal
+
+optimization: 2
+benchmarks: True
+
+constraints: flatparse +llvm,
+
+program-options
+  happy-options: --strict
