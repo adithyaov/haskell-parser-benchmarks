@@ -100,20 +100,22 @@ it was around 200x slower than _Flatparse_. I did however not use a
 tokenizer, which could have improved its performance.
 
 ## Running it yourself
+
 ```sh
 $ python ./gen-example.py
 $ cabal bench
 ```
-If you want experiment with the different implementations, run
+
+If you want to make changes, you should run
 
 ```sh
-$ cabal bench --benchmark-options="--csv baseline.csv +RTS -T"
+$ cabal bench --benchmark-options="--csv baseline.csv"
 ```
 
-once, then make the changes you want to make, and then run
+once. Make the changes you want to make, and then run
 
 ```sh
-$ cabal bench --benchmark-options="--baseline baseline.csv +RTS -T"
+$ cabal bench --benchmark-options="--baseline baseline.csv"
 ```
 
 to see how much the performance has changed.

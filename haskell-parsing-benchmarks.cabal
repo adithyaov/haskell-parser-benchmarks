@@ -49,5 +49,6 @@ benchmark haskell-parsing-benchmarks
                       tasty-bench ^>= 0.3,
                       haskell-parsing-benchmarks
     ghc-options:      -rtsopts
+                      -with-rtsopts=-T
     default-language: Haskell2010
     default-extensions: ImportQualifiedPost
