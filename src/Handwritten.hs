@@ -80,45 +80,46 @@ parse = runLexer
 
 
 instance Monad Lexer where
-    {-# INLINE (>>=) #-}
-    m >>= f = Lexer $ \s r g -> unLexer m s r $ \s' a -> unLexer (f a) s' r g
+    m >>= f =
+        Lexer $ \s r g ->
+            unLexer m s r $ \s' a ->
+                unLexer (f a) s' r g
 
 
-    {-# INLINE (>>) #-}
     (>>) = (*>)
 
 
 instance Applicative Lexer where
-    {-# INLINE pure #-}
     pure a = Lexer $ \s _ g -> g s a
 
 
-    {-# INLINE (<*>) #-}
     mf <*> ma =
         Lexer $ \s r g ->
             unLexer mf s r $ \s' f ->
                 unLexer ma s' r $ \s'' -> g s'' . f
 
 
-    {-# INLINE (*>) #-}
-    mx *> ma = Lexer $ \s r g -> unLexer mx s r $ \s' _ -> unLexer ma s' r g
+    mx *> ma =
+        Lexer $ \s r g ->
+            unLexer mx s r $ \s' _ ->
+                unLexer ma s' r g
 
 
 instance Functor Lexer where
-    {-# INLINE fmap #-}
-    fmap f m = Lexer $ \r s g -> unLexer m r s (\s' -> g s' . f)
+    fmap f m =
+        Lexer $ \r s g ->
+            unLexer m r s $ \s' ->
+                g s' . f
 
 
 instance MonadFail Lexer where
     fail _ = empty
 
 
-{-# INLINE empty #-}
 empty :: Lexer a
 empty = Lexer $ \s r _ -> r s
 
 
-{-# INLINE peek #-}
 peek :: Lexer Token
 peek = Lexer $ \s@(S t _) _ c -> c s t
 
@@ -155,7 +156,6 @@ popToken s@(S t@(T _ _ p) b) err ok = go p b
         digit c = fromIntegral $ ord c - ord '0'
 
 
-{-# INLINE pop #-}
 pop :: Lexer Token
 pop = Lexer popToken
 
@@ -181,36 +181,30 @@ atom =
 
 
 sum' :: Expr -> Lexer Expr
-sum' = go
-    where
-        go :: Expr -> Lexer Expr
-        go !l =
-            peek >>= \case
-                T TOp Add _ -> do
-                    _ <- pop
-                    a <- atom
-                    r <- prod a
-                    go $ Bin Add l r
-                T TOp Sub _ -> do
-                    _ <- pop
-                    a <- atom
-                    r <- prod a
-                    go $ Bin Sub l r
-                _ -> pure l
+sum' !l =
+    peek >>= \case
+        T TOp Add _ -> do
+            _ <- pop
+            a <- atom
+            r <- prod a
+            sum' $ Bin Add l r
+        T TOp Sub _ -> do
+            _ <- pop
+            a <- atom
+            r <- prod a
+            sum' $ Bin Sub l r
+        _ -> pure l
 
 
 prod :: Expr -> Lexer Expr
-prod = go
-    where
-        go :: Expr -> Lexer Expr
-        go !l =
-            peek >>= \case
-                T TOp Mul _ -> do
-                    _ <- pop
-                    r <- atom
-                    go $ Bin Mul l r
-                T TOp Div _ -> do
-                    _ <- pop
-                    r <- atom
-                    go $ Bin Div l r
-                _ -> pure l
+prod !l =
+    peek >>= \case
+        T TOp Mul _ -> do
+            _ <- pop
+            r <- atom
+            prod $ Bin Mul l r
+        T TOp Div _ -> do
+            _ <- pop
+            r <- atom
+            prod $ Bin Div l r
+        _ -> pure l
