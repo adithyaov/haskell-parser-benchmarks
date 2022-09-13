@@ -6,7 +6,7 @@
 {-# OPTIONS_GHC -Wno-unused-local-binds #-}
 {-# OPTIONS_GHC -Wno-unused-matches #-}
 
-module Parsley.Text where
+module Parsley.Text (parseFile) where
 
 import Data.Text qualified as T
 import Data.Text.IO qualified as T

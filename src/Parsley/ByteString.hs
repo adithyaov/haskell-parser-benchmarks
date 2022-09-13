@@ -6,7 +6,7 @@
 {-# OPTIONS_GHC -Wno-unused-local-binds #-}
 {-# OPTIONS_GHC -Wno-unused-matches #-}
 
-module Parsley.ByteString where
+module Parsley.ByteString (parseFile) where
 
 import Data.ByteString qualified as BS
 
