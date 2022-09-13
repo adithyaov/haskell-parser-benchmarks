@@ -79,8 +79,9 @@ part of the parser.
 | Parsec (Text)               | 1.52  s   | 7.30x  | 6.4 GB           |
 | UU Parsing Lib (ByteString) | 3.81  s   | 18.28x | 5.5 GB           |
 
-__IMPORTANT__: _Memory allocated is not peak memory consumption, since
-it does not decrease, when memory is freed._
+__IMPORTANT__: _Memory allocated is not peak memory consumption, but
+how much data got created. Peak memory consumption is not measured
+accurately by this benchmark._
 
 The benchmark was compiled with GHC 9.2.1, without a threaded runtime
 or the LLVM code generator, but with `-O2`.
