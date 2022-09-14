@@ -122,7 +122,7 @@ to see how much the performance has changed.
 __IMPORTANT__: _When simply running `cabal bench` the reported peak
 memory consumption is not accurate, as the RTS will not free unused
 memory between benchmarks. So the numbers will only go up, never
-down.
+down._
 
 To measure peak memory consumption, but not time, run
 
