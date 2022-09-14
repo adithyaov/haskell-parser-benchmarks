@@ -31,10 +31,10 @@ bigExample =
         "big-example.txt"
         [ makeBench "Flatparse (ByteString)" FlatParse.parseFile
         , bcompare "Flatparse" $ makeBench "Handwritten (ByteString)" Handwritten.parseFile
-        , bcompare "Flatparse" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
-        , bcompare "Flatparse" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
         , bcompare "Flatparse" $ makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
+        , bcompare "Flatparse" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Parsley (Text)" Parsley.Text.parseFile
+        , bcompare "Flatparse" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
         , bcompare "Flatparse" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
         , bcompare "Flatparse" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
