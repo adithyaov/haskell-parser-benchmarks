@@ -3,6 +3,12 @@
 A simple benchmark comparing the performance of different parser
 implementations. The objective is to parse the following grammar:
 
+
+[[_TOC_]]
+
+
+## Overview
+
 ```bnf
 SUM   = SUM '+' PROD
       | SUM '-' PROD
