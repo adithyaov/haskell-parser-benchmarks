@@ -64,24 +64,20 @@ part of the parser.
 
 ## Results
 
-| Parser                      | Time      | Factor | Memory allocated |
-|:--------------------------- | ---------:| ------:| ----------------:|
-| Flatparse                   | 208  ms   | 1.00x  | 70 MB            |
-| Handwritten                 | 229  ms   | 1.10x  | 292 MB           |
-| Parsley (ByteString)        | 339  ms   | 1.63x  | 806 MB           |
-| Attoparsec (ByteString)     | 360  ms   | 1.73x  | 1.3 GB           |
-| Parsley (Text)              | 377  ms   | 1.81x  | 885 MB           |
-| Attoparsec (Text)           | 392  ms   | 1.88x  | 1.3 GB           |
-| Megaparsec (ByteString)     | 471  ms   | 2.26x  | 2.3 GB           |
-| Megaparsec (Text)           | 620  ms   | 2.98x  | 3.0 GB           |
-| Alex/Happy                  | 665  ms   | 3.20x  | 2.8 GB           |
-| Parsec (ByteString)         | 1.50  s   | 7.24x  | 6.4 GB           |
-| Parsec (Text)               | 1.52  s   | 7.30x  | 6.4 GB           |
-| UU Parsing Lib (ByteString) | 3.81  s   | 18.28x | 5.5 GB           |
-
-__IMPORTANT__: _Memory allocated is not peak memory consumption, but
-how much data got created. Peak memory consumption is not measured
-accurately by this benchmark._
+| Parser                      | Time      | Factor | Memory allocated | Peak memory |
+|:--------------------------- | ---------:| ------:| ----------------:| -----------:|
+| Flatparse                   | 208  ms   | 1.00x  | 70 MB            | 96 MB       |
+| Handwritten                 | 229  ms   | 1.10x  | 292 MB           | 61 MB       |
+| Parsley (ByteString)        | 339  ms   | 1.63x  | 806 MB           | 102 MB      |
+| Attoparsec (ByteString)     | 360  ms   | 1.73x  | 1.3 GB           | 97 MB       |
+| Parsley (Text)              | 377  ms   | 1.81x  | 885 MB           | 87 MB       |
+| Attoparsec (Text)           | 392  ms   | 1.88x  | 1.3 GB           | 85 MB       |
+| Megaparsec (ByteString)     | 471  ms   | 2.26x  | 2.3 GB           | 94 MB       |
+| Megaparsec (Text)           | 620  ms   | 2.98x  | 3.0 GB           | 81 MB       |
+| Alex/Happy                  | 665  ms   | 3.20x  | 2.8 GB           | 92 MB       |
+| Parsec (ByteString)         | 1.50  s   | 7.24x  | 6.4 GB           | 192 MB      |
+| Parsec (Text)               | 1.52  s   | 7.30x  | 6.4 GB           | 172 MB      |
+| UU Parsing Lib (ByteString) | 3.81  s   | 18.28x | 5.5 GB           | 672 MB      |
 
 The benchmark was compiled with GHC 9.2.1, without a threaded runtime
 or the LLVM code generator, but with `-O2`.
@@ -122,6 +118,17 @@ $ cabal bench --benchmark-options="--baseline baseline.csv"
 ```
 
 to see how much the performance has changed.
+
+__IMPORTANT__: _When simply running `cabal bench` the reported peak
+memory consumption is not accurate, as the RTS will not free unused
+memory between benchmarks. So the numbers will only go up, never
+down.
+
+To measure peak memory consumption, but not time, run
+
+```sh
+$ ./peak-memory.sh
+```
 
 
 ## Credits
