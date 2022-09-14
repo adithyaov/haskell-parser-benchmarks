@@ -1,23 +1,14 @@
-#!/usr/bin/env sh
-
-benchmarks=(
-    "Flatparse (ByteString)"
-    "Handwritten (ByteString)"
-    "Attoparsec (ByteString)"
-    "Attoparsec (Text)"
-    "Parsley (ByteString)"
-    "Parsley (Text)"
-    "Megaparsec (ByteString)"
-    "Megaparsec (Text)"
-    "Alex\\/Happy (ByteString)"
-    "Parsec (ByteString)"
-    "Parsec (Text)"
-    "UU Parsing Lib (Text)"
-);
+#!/usr/bin/env bash
 
 cabal build bench:haskell-parsing-benchmarks
 benchmark_exe="$(cabal list-bin bench:haskell-parsing-benchmarks)"
+readarray -t benchmarks < <("${benchmark_exe}" -l)
 
 for benchmark in "${benchmarks[@]}"; do
-    "${benchmark_exe}" --stdev Infinity --pattern "/$benchmark/" | grep "$benchmark\\|peak memory"
+    benchmark_pattern=${benchmark//\//\\\/}
+    benchmark_name=${benchmark##*.}
+    echo $benchmark_name
+    "${benchmark_exe}" --stdev Infinity --pattern "/$benchmark_pattern/" \
+        | grep "peak memory" \
+        | sed -e 's/.*\([0-9]\+ MB peak memory\).*/\t\1/g'
 done
