@@ -18,11 +18,11 @@ parseFile path = parse expr <$> BS.readFile path
 
 
 data Token where
-    T ::
-        TokenTag a ->
-        a ->
-        {-# UNPACK #-} Pos ->
-        Token
+    T
+        :: TokenTag a
+        -> a
+        -> {-# UNPACK #-} Pos
+        -> Token
 
 
 data TokenTag a where
@@ -47,25 +47,25 @@ data Pos = Pos
 
 newtype Lexer a
     = Lexer
-        ( forall r.
-          LexerState ->
-          (LexerState -> r) ->
-          (LexerState -> a -> r) ->
-          r
+        ( forall r
+           . LexerState
+          -> (LexerState -> r)
+          -> (LexerState -> a -> r)
+          -> r
         )
 
 
 {-# INLINE unLexer #-}
-unLexer ::
-    Lexer a ->
-    forall r.
-    -- | current state
-    LexerState ->
-    -- | failure
-    (LexerState -> r) ->
-    -- | success
-    (LexerState -> a -> r) ->
-    r
+unLexer
+    :: Lexer a
+    -> forall r
+     . LexerState
+       -- ^ current state
+    -> (LexerState -> r)
+    -- ^ failure
+    -> (LexerState -> a -> r)
+    -- ^ success
+    -> r
 unLexer (Lexer f) = f
 
 
