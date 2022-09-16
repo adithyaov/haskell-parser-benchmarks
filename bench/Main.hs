@@ -21,6 +21,7 @@ import Parsec.Text qualified
 import Parsley.ByteString qualified
 import Parsley.Text qualified
 import UUParsingLib qualified
+import Streamly qualified
 
 
 main :: IO ()
@@ -34,6 +35,7 @@ byteString =
                 [ makeBench "Flatparse" FlatParse.parseFile
                 , makeBench "Handwritten.CPS" Handwritten.CPS.parseFile
                 , makeBench "Handwritten.Normal" Handwritten.Normal.parseFile
+                , makeBench "Streamly" Streamly.parseFile
                 , makeBench "Attoparsec" Attoparsec.ByteString.parseFile
                 , makeBench "Megaparsec/Happy" MegaHappy.Grammar.parseFile
                 , makeBench "Parsley" Parsley.ByteString.parseFile

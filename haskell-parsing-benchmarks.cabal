@@ -19,6 +19,7 @@ library
                         Earley ^>= 0.13,
                         ListLike ^>= 4.7,
                         parsley ^>= 2.0,
+                        streamly-core ^>= 0.2.0,
       ghc-options:      -Wall
                         -Wextra
       build-tool-depends: alex:alex ^>= 3.2,
@@ -42,6 +43,7 @@ library
                         Parsley.ByteString
                         MegaHappy.Parser
                         MegaHappy.Grammar
+                        Streamly
       hs-source-dirs:   src
       default-language: Haskell2010
       default-extensions: ImportQualifiedPost
