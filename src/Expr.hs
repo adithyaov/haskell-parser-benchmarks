@@ -7,11 +7,11 @@ import Data.Word
 
 data Expr
     = Bin Op Expr Expr
-    | Num Word64
+    | Num Word64 deriving (Show)
 
 
 data Op
     = Add
     | Sub
     | Mul
-    | Div
+    | Div deriving (Show)

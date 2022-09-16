@@ -1,5 +1,19 @@
+packages: ../streamly/streamly.cabal
+        , ../streamly/core/streamly-core.cabal
+
 ignore-project: False
 optimization: 2
 benchmarks: True
 
-constraints:      flatparse +llvm,
+-- constraints:      flatparse +llvm,
+
+-- source-repository-package
+--    type: git
+--    location: https://github.com/composewell/streamly.git
+--    tag: master
+--
+-- source-repository-package
+--    type: git
+--    location: https://github.com/composewell/streamly.git
+--    tag: master
+--    subdir: core

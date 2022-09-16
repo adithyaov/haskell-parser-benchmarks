@@ -13,10 +13,14 @@ library
                         megaparsec ^>= 9.2,
                         text ^>= 2.0,
                         array ^>= 0.5,
-                        flatparse ^>= 0.3,
+                        -- flatparse ^>= 0.3,
                         uu-parsinglib ^>= 2.9.2,
                         Earley ^>= 0.13,
                         ListLike ^>= 4.7,
+                        streamly,
+                        streamly-core,
+                        exceptions,
+                        fusion-plugin
       ghc-options:      -Wall
                         -Wextra
       exposed-modules:  Handwritten
@@ -27,11 +31,12 @@ library
                         Megaparsec.ByteString
                         Parsec.Text
                         Parsec.ByteString
-                        FlatParse
-                        Alex
-                        Happy
+                        -- FlatParse
+                        -- Alex
+                        -- Happy
                         UUParsingLib
                         Earley
+                        Streamly
       hs-source-dirs:   src
       default-language: Haskell2010
       default-extensions: ImportQualifiedPost
@@ -45,7 +50,13 @@ benchmark haskell-parsing-benchmarks
                       tasty-bench ^>= 0.3,
                       bytestring ^>= 0.11,
                       text ^>= 2.0,
-                      haskell-parsing-benchmarks
-    ghc-options:      -rtsopts
+                      haskell-parsing-benchmarks,
+                      fusion-plugin
+    ghc-options: -O2
+                 -fdicts-strict
+                 -fspec-constr-recursive=16
+                 -fmax-worker-args=16
+                 -fplugin Fusion.Plugin
+                 -rtsopts
     default-language: Haskell2010
     default-extensions: ImportQualifiedPost
