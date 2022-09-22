@@ -50,6 +50,7 @@ benchmark haskell-parsing-benchmarks
     main-is:          main.hs
     hs-source-dirs:   bench
     build-depends:    base >= 4.16.0.0,
+                      tasty ^>= 1.4,
                       tasty-bench ^>= 0.3,
                       haskell-parsing-benchmarks
     ghc-options:      -rtsopts

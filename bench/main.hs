@@ -5,6 +5,7 @@ module Main where
 import Data.Maybe (fromJust)
 import Expr
 import Test.Tasty.Bench
+import Test.Tasty.Patterns.Printer (printAwkExpr)
 
 import Attoparsec.ByteString qualified
 import Attoparsec.Text qualified
@@ -31,19 +32,26 @@ bigExample =
     bgroup
         "big-example.txt"
         [ makeBench "Flatparse (ByteString)" FlatParse.parseFile
-        , bcompare "Flatparse" $ makeBench "Handwritten.CPS (ByteString)" Handwritten.CPS.parseFile
-        , bcompare "Flatparse" $ makeBench "Handwritten.Normal (ByteString)" Handwritten.Normal.parseFile
-        , bcompare "Flatparse" $ makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
-        , bcompare "Flatparse" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
-        , bcompare "Flatparse" $ makeBench "Parsley (Text)" Parsley.Text.parseFile
-        , bcompare "Flatparse" $ makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
-        , bcompare "Flatparse" $ makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
-        , bcompare "Flatparse" $ makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
-        , bcompare "Flatparse" $ makeBench "Alex/Happy (ByteString)" Happy.parseFile
-        , bcompare "Flatparse" $ makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
-        , bcompare "Flatparse" $ makeBench "Parsec (Text)" Parsec.Text.parseFile
-        , bcompare "Flatparse" $ makeBench "UU Parsing Lib (Text)" UUParsingLib.parseFile
+        , makeBench "Handwritten.CPS (ByteString)" Handwritten.CPS.parseFile
+        , makeBench "Handwritten.Normal (ByteString)" Handwritten.Normal.parseFile
+        , makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
+        , makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
+        , makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
+        , makeBench "Parsley (Text)" Parsley.Text.parseFile
+        , makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
+        , makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
+        , makeBench "Alex/Happy (ByteString)" Happy.parseFile
+        , makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
+        , makeBench "Parsec (Text)" Parsec.Text.parseFile
+        , makeBench "UU Parsing Lib (Text)" UUParsingLib.parseFile
         ]
     where
+        baselineBenchName = "Flatparse (ByteString)"
+        baselineBenchPat = printAwkExpr $ locateBenchmark [baselineBenchName]
+
         makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark
-        makeBench name parseFile = bench name $ whnfIO $ fromJust <$> parseFile "big-example.txt"
+        makeBench name parseFile =
+            let benchmark = bench name $ whnfIO $ fromJust <$> parseFile "big-example.txt"
+             in if name == baselineBenchName
+                    then benchmark
+                    else bcompare baselineBenchPat benchmark
