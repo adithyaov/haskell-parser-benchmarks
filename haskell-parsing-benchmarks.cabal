@@ -8,6 +8,7 @@ maintainer:         mailobender77x@gmail.com
 library
       build-depends:    base >=4.15.0.0,
                         bytestring ^>= 0.11,
+                        transformers ^>= 0.5,
                         parsec ^>= 3.1,
                         attoparsec ^>= 0.14,
                         megaparsec ^>= 9.2,
@@ -24,6 +25,7 @@ library
                           happy:happy ^>= 1.20,
       exposed-modules:  Expr
                         Handwritten.CPS
+                        Handwritten.Normal
                         Attoparsec.ByteString
                         Attoparsec.Text
                         Megaparsec.Text

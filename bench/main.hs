@@ -10,6 +10,7 @@ import Attoparsec.ByteString qualified
 import Attoparsec.Text qualified
 import FlatParse qualified
 import Handwritten.CPS qualified
+import Handwritten.Normal qualified
 import Happy qualified
 import Megaparsec.ByteString qualified
 import Megaparsec.Text qualified
@@ -31,6 +32,7 @@ bigExample =
         "big-example.txt"
         [ makeBench "Flatparse (ByteString)" FlatParse.parseFile
         , bcompare "Flatparse" $ makeBench "Handwritten.CPS (ByteString)" Handwritten.CPS.parseFile
+        , bcompare "Flatparse" $ makeBench "Handwritten.Normal (ByteString)" Handwritten.Normal.parseFile
         , bcompare "Flatparse" $ makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
         , bcompare "Flatparse" $ makeBench "Parsley (Text)" Parsley.Text.parseFile

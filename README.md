@@ -67,7 +67,8 @@ part of the parser.
 | Parser                      | Time      | Factor | Memory allocated | Peak memory |
 |:--------------------------- | ---------:| ------:| ----------------:| -----------:|
 | Flatparse                   | 208  ms   | 1.00x  | 70 MB            | 96 MB       |
-| Handwritten                 | 229  ms   | 1.10x  | 292 MB           | 61 MB       |
+| Handwritten.CPS             | 229  ms   | 1.10x  | 292 MB           | 61 MB       |
+| Handwritten.Normal          | 231  ms   | 1.11x  | 301 MB           | 59 MB       |
 | Parsley (ByteString)        | 339  ms   | 1.63x  | 806 MB           | 102 MB      |
 | Attoparsec (ByteString)     | 360  ms   | 1.73x  | 1.3 GB           | 97 MB       |
 | Parsley (Text)              | 377  ms   | 1.81x  | 885 MB           | 87 MB       |
