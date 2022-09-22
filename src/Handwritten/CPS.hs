@@ -4,7 +4,7 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StrictData #-}
 
-module Handwritten (parseFile, Pos (..)) where
+module Handwritten.CPS (parseFile, Pos (..)) where
 
 import Data.ByteString.Char8 qualified as BS
 import Data.Char (isDigit, ord)

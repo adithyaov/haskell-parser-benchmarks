@@ -22,8 +22,8 @@ library
                         -Wextra
       build-tool-depends: alex:alex ^>= 3.2,
                           happy:happy ^>= 1.20,
-      exposed-modules:  Handwritten
-                        Expr
+      exposed-modules:  Expr
+                        Handwritten.CPS
                         Attoparsec.ByteString
                         Attoparsec.Text
                         Megaparsec.Text
