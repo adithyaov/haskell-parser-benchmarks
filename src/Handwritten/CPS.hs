@@ -164,8 +164,7 @@ expr :: Lexer Expr
 expr = do
     a <- atom
     p <- prod a
-    e <- sum' p
-    pure e
+    sum' p
 
 
 {-# INLINE atom #-}

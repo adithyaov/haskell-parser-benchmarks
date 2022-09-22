@@ -1,9 +1,9 @@
 {-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StrictData #-}
-{-# LANGUAGE DerivingVia #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 module Handwritten.Normal (parseFile, Pos (..)) where
@@ -48,9 +48,9 @@ data Pos = Pos
     }
 
 
-newtype Lexer a
-    = Lexer { unLexer :: LexerState -> Maybe (a, LexerState) }
+newtype Lexer a = Lexer {unLexer :: LexerState -> Maybe (a, LexerState)}
     deriving (Functor, Applicative, Monad, MonadFail) via StateT LexerState Maybe
+
 
 runLexer :: Lexer a -> BS.ByteString -> Maybe a
 runLexer m input =
@@ -67,7 +67,7 @@ empty = Lexer $ const Nothing
 
 
 peek :: Lexer Token
-peek = Lexer $ \s@(S t _)  -> Just (t, s)
+peek = Lexer $ \s@(S t _) -> Just (t, s)
 
 
 updatePos :: Char -> Pos -> Pos
