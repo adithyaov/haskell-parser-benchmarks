@@ -4,7 +4,6 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StrictData #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 module Handwritten.Normal (parseFile, Pos (..)) where
 
