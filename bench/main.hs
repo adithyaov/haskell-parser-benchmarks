@@ -20,6 +20,7 @@ import Parsec.Text qualified
 import Parsley.ByteString qualified
 import Parsley.Text qualified
 import UUParsingLib qualified
+import MegaHappy.Grammar qualified
 
 
 main :: IO ()
@@ -41,6 +42,7 @@ bigExample =
         , makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
         , makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
         , makeBench "Alex/Happy (ByteString)" Happy.parseFile
+        , makeBench "Megaparsec/Happy (ByteString)" MegaHappy.Grammar.parseFile
         , makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
         , makeBench "Parsec (Text)" Parsec.Text.parseFile
         , makeBench "UU Parsing Lib (Text)" UUParsingLib.parseFile
