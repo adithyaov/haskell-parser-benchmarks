@@ -1,6 +1,6 @@
 {
 {-# OPTIONS_GHC -Wno-unused-imports #-}
-module Alex (alexMonadScan, Token(..), alexError, Alex, runAlex) where
+module AlexHappy.Lexer (alexMonadScan, Token(..), alexError, Alex, runAlex) where
 
 import Data.Char (ord)
 import Data.Word

@@ -1,8 +1,8 @@
 {
-module Happy (parseFile) where
+module AlexHappy.Grammar (parseFile) where
 
 import Expr
-import Alex
+import AlexHappy.Lexer
 
 import qualified Data.ByteString.Lazy as BS
 }

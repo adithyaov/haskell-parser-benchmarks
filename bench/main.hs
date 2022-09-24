@@ -12,7 +12,7 @@ import Attoparsec.Text qualified
 import FlatParse qualified
 import Handwritten.CPS qualified
 import Handwritten.Normal qualified
-import Happy qualified
+import AlexHappy.Grammar qualified
 import Megaparsec.ByteString qualified
 import Megaparsec.Text qualified
 import Parsec.ByteString qualified
@@ -37,12 +37,12 @@ bigExample =
         , makeBench "Handwritten.Normal (ByteString)" Handwritten.Normal.parseFile
         , makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
         , makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
+        , makeBench "Megaparsec/Happy (ByteString)" MegaHappy.Grammar.parseFile
         , makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
         , makeBench "Parsley (Text)" Parsley.Text.parseFile
         , makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
         , makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
-        , makeBench "Alex/Happy (ByteString)" Happy.parseFile
-        , makeBench "Megaparsec/Happy (ByteString)" MegaHappy.Grammar.parseFile
+        , makeBench "Alex/Happy (ByteString)" AlexHappy.Grammar.parseFile
         , makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
         , makeBench "Parsec (Text)" Parsec.Text.parseFile
         , makeBench "UU Parsing Lib (Text)" UUParsingLib.parseFile
