@@ -110,6 +110,7 @@ $ ./peak-memory.sh
 
 ## Credits
 
-| Name            | Contribution                   |
-|:--------------- |:------------------------------ |
-| Jaro Reinders   | UU Parsing Lib benchmark       |
+| Name                | Contribution                   |
+|:------------------- |:------------------------------ |
+| Jaro Reinders       | UU Parsing Lib benchmark       |
+| Vladislav Zavialov  | Megaparsec/Happy benchmark     |
