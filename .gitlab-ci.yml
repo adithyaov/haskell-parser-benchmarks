@@ -1,0 +1,44 @@
+stages:
+    - building
+    - benching
+
+build:
+    image: haskell:9.2-slim-buster
+    stage: building
+    artifacts:
+        paths:
+            - haskell-parsing-benchmarks
+            - big-example.txt
+        expose_as: 'benchmark-executable'
+        expire_in: 1 day
+    cache:
+        key: cabal-store
+        paths:
+            - cabal-store/
+
+    before_script:
+        - apt-get update && apt-get install -y llvm-11-tools clang-11 python3
+        - cabal update
+        - export PATH=/usr/lib/llvm-11/bin:$PATH
+
+    script:
+        - cabal --store-dir=cabal-store build --enable-benchmarks --allow-newer
+        - python3 ./gen-example.py
+
+    after_script:
+        - cp "$(cabal list-bin bench:haskell-parsing-benchmarks)" haskell-parsing-benchmarks
+
+
+bench:
+    image: debian:buster-slim
+    stage: benching
+    dependencies:
+        - build
+    artifacts:
+        paths:
+            - benchmark.stdout
+        expose_as: benchmark_stdout
+        expire_in: 1 year
+
+    script:
+        - ./haskell-parsing-benchmarks --stdev 5 --timeout 60 | tee benchmark.stdout
