@@ -49,6 +49,7 @@ part of the parser.
 | Attoparsec           | Text        | 392  ms   | 1.87x  | 1.3 GB           | 85 MB       |
 | Parsley              | ByteString  | 419  ms   | 2.00x  | 1.0 GB           | 102 MB      |
 | Parsley              | Text        | 445  ms   | 2.00x  | 1.0 GB           | 87 MB       |
+| Megaparsec/Happy     | ByteString  | 450  ms   | 2.14x  | 1.9 GB           | 95 MB       |
 | Megaparsec           | ByteString  | 456  ms   | 2.18x  | 2.2 GB           | 94 MB       |
 | Megaparsec           | Text        | 601  ms   | 2.87x  | 3.0 GB           | 81 MB       |
 | Alex/Happy           | ByteString  | 653  ms   | 3.11x  | 2.8 GB           | 92 MB       |
