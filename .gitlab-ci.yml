@@ -1,5 +1,6 @@
 stages:
     - build-stage
+    - test-stage
     - bench-stage
 
 build:
@@ -8,9 +9,10 @@ build:
     artifacts:
         paths:
             - haskell-parsing-benchmarks
+            - haskell-parsing-benchmarks-tests
             - big-example.txt
-        expose_as: 'benchmark-executable'
-        expire_in: 1 day
+        expose_as: 'benchmark-executables'
+        expire_in: 3 days
     cache:
         key: cabal-store
         paths:
@@ -27,7 +29,20 @@ build:
 
     after_script:
         - cp "$(cabal list-bin bench:haskell-parsing-benchmarks)" haskell-parsing-benchmarks
+        - cp "$(cabal list-bin test-suite:haskell-parsing-benchmarks-tests)" haskell-parsing-benchmarks-tests
 
+test:
+    image: debian:buster-slim
+    stage: test-stage
+    dependencies:
+        - build
+    artifacts:
+        paths:
+            - results-tests.txt
+        expose_as: test-results
+
+    script:
+        - ./haskell-parsing-benchmarks-tests | tee results-tests.txt
 
 bench:
     image: debian:buster-slim
@@ -39,7 +54,6 @@ bench:
             - results-time.txt
             - results-mem.txt
         expose_as: benchmark-results
-        expire_in: 1 year
 
     script:
         - ./haskell-parsing-benchmarks --stdev 5 --timeout 60 | tee results-time.txt
