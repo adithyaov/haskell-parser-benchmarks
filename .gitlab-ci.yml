@@ -36,8 +36,9 @@ bench:
         - build
     artifacts:
         paths:
-            - benchmark.stdout
-        expose_as: benchmark_stdout
+            - results-time.txt
+            - results-mem.txt
+        expose_as: benchmark-results
         expire_in: 1 year
 
     script:
