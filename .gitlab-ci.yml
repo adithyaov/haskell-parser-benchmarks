@@ -41,4 +41,5 @@ bench:
         expire_in: 1 year
 
     script:
-        - ./haskell-parsing-benchmarks --stdev 5 --timeout 60 | tee benchmark.stdout
+        - ./haskell-parsing-benchmarks --stdev 5 --timeout 60 | tee results-time.txt
+        - ./peak-memory.sh haskell-parsing-benchmarks | tee results-mem.txt

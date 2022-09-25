@@ -7,12 +7,13 @@ import Expr
 import Test.Tasty.Bench
 import Test.Tasty.Patterns.Printer (printAwkExpr)
 
+import AlexHappy.Grammar qualified
 import Attoparsec.ByteString qualified
 import Attoparsec.Text qualified
 import FlatParse qualified
 import Handwritten.CPS qualified
 import Handwritten.Normal qualified
-import AlexHappy.Grammar qualified
+import MegaHappy.Grammar qualified
 import Megaparsec.ByteString qualified
 import Megaparsec.Text qualified
 import Parsec.ByteString qualified
@@ -20,40 +21,43 @@ import Parsec.Text qualified
 import Parsley.ByteString qualified
 import Parsley.Text qualified
 import UUParsingLib qualified
-import MegaHappy.Grammar qualified
 
 
 main :: IO ()
 main =
-    defaultMain [bigExample]
+    defaultMain [byteString, text]
 
+byteString :: Benchmark
+byteString =
+            bgroup
+                "ByteString"
+                [ makeBench "Flatparse" FlatParse.parseFile
+                , makeBench "Handwritten.CPS" Handwritten.CPS.parseFile
+                , makeBench "Handwritten.Normal" Handwritten.Normal.parseFile
+                , makeBench "Attoparsec" Attoparsec.ByteString.parseFile
+                , makeBench "Megaparsec/Happy" MegaHappy.Grammar.parseFile
+                , makeBench "Parsley" Parsley.ByteString.parseFile
+                , makeBench "Megaparsec" Megaparsec.ByteString.parseFile
+                , makeBench "Alex/Happy" AlexHappy.Grammar.parseFile
+                , makeBench "Parsec" Parsec.ByteString.parseFile
+                ]
 
-bigExample :: Benchmark
-bigExample =
-    bgroup
-        "big-example.txt"
-        [ makeBench "Flatparse (ByteString)" FlatParse.parseFile
-        , makeBench "Handwritten.CPS (ByteString)" Handwritten.CPS.parseFile
-        , makeBench "Handwritten.Normal (ByteString)" Handwritten.Normal.parseFile
-        , makeBench "Attoparsec (ByteString)" Attoparsec.ByteString.parseFile
-        , makeBench "Attoparsec (Text)" Attoparsec.Text.parseFile
-        , makeBench "Megaparsec/Happy (ByteString)" MegaHappy.Grammar.parseFile
-        , makeBench "Parsley (ByteString)" Parsley.ByteString.parseFile
-        , makeBench "Parsley (Text)" Parsley.Text.parseFile
-        , makeBench "Megaparsec (ByteString)" Megaparsec.ByteString.parseFile
-        , makeBench "Megaparsec (Text)" Megaparsec.Text.parseFile
-        , makeBench "Alex/Happy (ByteString)" AlexHappy.Grammar.parseFile
-        , makeBench "Parsec (ByteString)" Parsec.ByteString.parseFile
-        , makeBench "Parsec (Text)" Parsec.Text.parseFile
-        , makeBench "UU Parsing Lib (Text)" UUParsingLib.parseFile
-        ]
-    where
-        baselineBenchName = "Flatparse (ByteString)"
-        baselineBenchPat = printAwkExpr $ locateBenchmark [baselineBenchName]
+text :: Benchmark
+text = bgroup
+                "Text"
+                [ makeBench "Attoparsec" Attoparsec.Text.parseFile
+                , makeBench "Parsley" Parsley.Text.parseFile
+                , makeBench "Megaparsec" Megaparsec.Text.parseFile
+                , makeBench "Parsec" Parsec.Text.parseFile
+                , makeBench "UU Parsing Lib" UUParsingLib.parseFile
+                ]
 
-        makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark
-        makeBench name parseFile =
-            let benchmark = bench name $ whnfIO $ fromJust <$> parseFile "big-example.txt"
-             in if name == baselineBenchName
-                    then benchmark
-                    else bcompare baselineBenchPat benchmark
+baselineBenchName = "Flatparse"
+baselineBenchPat = printAwkExpr $ locateBenchmark [baselineBenchName]
+
+makeBench :: String -> (FilePath -> IO (Maybe Expr)) -> Benchmark
+makeBench name parseFile =
+    let benchmark = bench name $ whnfIO $ fromJust <$> parseFile "big-example.txt"
+     in if name == baselineBenchName
+            then benchmark
+            else bcompare baselineBenchPat benchmark

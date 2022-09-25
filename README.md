@@ -40,25 +40,35 @@ part of the parser.
 
 ## Results
 
-| Parser               | String type | Time      | Factor | Memory allocated | Peak memory |
-|:-------------------- |:----------- | ---------:| ------:| ----------------:| -----------:|
-| Flatparse            | ByteString  | 210  ms   | 1.00x  | 70 MB            | 96 MB       |
-| Handwritten.CPS      | ByteString  | 224  ms   | 1.07x  | 289 MB           | 61 MB       |
-| Handwritten.Normal   | ByteString  | 226  ms   | 1.08x  | 301 MB           | 59 MB       |
-| Attoparsec           | ByteString  | 364  ms   | 1.73x  | 1.3 GB           | 97 MB       |
-| Attoparsec           | Text        | 392  ms   | 1.87x  | 1.3 GB           | 85 MB       |
-| Parsley              | ByteString  | 419  ms   | 2.00x  | 1.0 GB           | 102 MB      |
-| Parsley              | Text        | 445  ms   | 2.00x  | 1.0 GB           | 87 MB       |
-| Megaparsec/Happy     | ByteString  | 450  ms   | 2.14x  | 1.9 GB           | 95 MB       |
-| Megaparsec           | ByteString  | 456  ms   | 2.18x  | 2.2 GB           | 94 MB       |
-| Megaparsec           | Text        | 601  ms   | 2.87x  | 3.0 GB           | 81 MB       |
-| Alex/Happy           | ByteString  | 653  ms   | 3.11x  | 2.8 GB           | 92 MB       |
-| Parsec               | Text        | 2.06  s   | 9.82x  | 7.6 GB           | 172 MB      |
-| Parsec               | ByteString  | 2.09  s   | 9.96x  | 7.6 GB           | 192 MB      |
-| UU Parsing Lib       | ByteString  | 3.81  s   | 18.19x | 5.5 GB           | 672 MB      |
-
 The benchmark was compiled with GHC 9.2.4, without a threaded runtime
 or the LLVM code generator, but with `-O2`.
+
+
+### ByteString
+
+| Parser               | Time      | Factor | Memory allocated | Peak memory |
+|:-------------------- | ---------:| ------:| ----------------:| -----------:|
+| Flatparse            | 210  ms   | 1.00x  | 70 MB            | 96 MB       |
+| Handwritten.CPS      | 224  ms   | 1.07x  | 289 MB           | 61 MB       |
+| Handwritten.Normal   | 226  ms   | 1.08x  | 301 MB           | 59 MB       |
+| Attoparsec           | 364  ms   | 1.73x  | 1.3 GB           | 97 MB       |
+| Parsley              | 419  ms   | 2.00x  | 1.0 GB           | 102 MB      |
+| Megaparsec/Happy     | 450  ms   | 2.14x  | 1.9 GB           | 95 MB       |
+| Megaparsec           | 456  ms   | 2.18x  | 2.2 GB           | 94 MB       |
+| Alex/Happy           | 653  ms   | 3.11x  | 2.8 GB           | 92 MB       |
+| Parsec               | 2.09  s   | 9.96x  | 7.6 GB           | 192 MB      |
+
+
+### Text
+
+| Parser               | Time      | Factor | Memory allocated | Peak memory |
+|:-------------------- | ---------:| ------:| ----------------:| -----------:|
+| Attoparsec           | 392  ms   | 1.87x  | 1.3 GB           | 85 MB       |
+| Parsley              | 445  ms   | 2.00x  | 1.0 GB           | 87 MB       |
+| Megaparsec           | 601  ms   | 2.87x  | 3.0 GB           | 81 MB       |
+| Parsec               | 2.06  s   | 9.82x  | 7.6 GB           | 172 MB      |
+| UU Parsing Lib       | 3.81  s   | 18.19x | 5.5 GB           | 672 MB      |
+
 
 ## Notes
 
