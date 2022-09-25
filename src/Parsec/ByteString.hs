@@ -1,16 +1,17 @@
 {-# LANGUAGE Strict #-}
 
-module Parsec.ByteString (parseFile) where
+module Parsec.ByteString (parseFile, parseString) where
 
 import Control.Applicative
 import Control.Monad (void)
 import Data.Char (isSpace, ord)
 import Data.Word
 
+import Data.ByteString.Char8 qualified as BS
 import Text.Parsec qualified as M
+import Text.Parsec.ByteString qualified as M
 
 import Expr
-import Text.Parsec.ByteString qualified as M
 
 
 type Parser = M.Parser
@@ -62,3 +63,9 @@ parseFile filepath = do
     pure $ case result of
         Left _ -> Nothing
         Right ans -> Just ans
+
+
+parseString :: String -> Maybe Expr
+parseString str = case M.parse expr "<string>" $ BS.pack str of
+    Left _ -> Nothing
+    Right ans -> Just ans

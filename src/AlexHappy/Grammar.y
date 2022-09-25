@@ -1,10 +1,10 @@
 {
-module AlexHappy.Grammar (parseFile) where
+module AlexHappy.Grammar (parseFile, parseString) where
 
 import Expr
 import AlexHappy.Lexer
 
-import qualified Data.ByteString.Lazy as BS
+import qualified Data.ByteString.Lazy.Char8 as BS
 }
 
 %name parser
@@ -46,6 +46,13 @@ parseFile filepath = do
   pure $ case runAlex contents parser of
     Left _ -> Nothing
     Right ans -> Just ans
+
+parseString :: String -> Maybe Expr
+parseString str =
+    let input = BS.pack str
+    in  case runAlex input parser of
+            Left _ -> Nothing
+            Right ans -> Just ans
 
 parseError :: Token -> Alex a
 parseError _ = alexError "parse error"

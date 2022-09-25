@@ -1,7 +1,6 @@
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Megaparsec.ByteString (parseFile) where
+module Megaparsec.ByteString (parseFile, parseString) where
 
 import Control.Applicative
 import Control.Monad (void)
@@ -9,7 +8,7 @@ import Data.Char (chr, isSpace, ord)
 import Data.Void
 import Data.Word
 
-import Data.ByteString qualified as BS
+import Data.ByteString.Char8 qualified as BS
 import Text.Megaparsec
 import Text.Megaparsec.Byte qualified as M
 import Text.Megaparsec.Byte.Lexer (decimal)
@@ -77,3 +76,7 @@ parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
     content <- BS.readFile filepath
     pure $ parseMaybe expr content
+
+
+parseString :: String -> Maybe Expr
+parseString = parseMaybe expr . BS.pack

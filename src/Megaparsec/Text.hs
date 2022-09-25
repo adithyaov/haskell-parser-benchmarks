@@ -1,7 +1,6 @@
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Megaparsec.Text (parseFile) where
+module Megaparsec.Text (parseFile, parseString) where
 
 import Control.Applicative
 import Data.Char (isSpace)
@@ -61,3 +60,7 @@ parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
     content <- T.readFile filepath
     pure $ parseMaybe expr content
+
+
+parseString :: String -> Maybe Expr
+parseString = parseMaybe expr . T.pack

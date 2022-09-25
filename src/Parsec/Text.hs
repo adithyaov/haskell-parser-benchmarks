@@ -1,17 +1,17 @@
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Parsec.Text (parseFile) where
+module Parsec.Text (parseFile, parseString) where
 
 import Control.Applicative
 import Control.Monad (void)
 import Data.Char (isSpace, ord)
 import Data.Word
 
+import Data.Text qualified as T
 import Text.Parsec qualified as M
+import Text.Parsec.Text qualified as M
 
 import Expr
-import Text.Parsec.Text qualified as M
 
 
 type Parser = M.Parser
@@ -63,3 +63,9 @@ parseFile filepath = do
     pure $ case result of
         Left _ -> Nothing
         Right ans -> Just ans
+
+
+parseString :: String -> Maybe Expr
+parseString str = case M.parse expr "<string>" $ T.pack str of
+    Left _ -> Nothing
+    Right ans -> Just ans

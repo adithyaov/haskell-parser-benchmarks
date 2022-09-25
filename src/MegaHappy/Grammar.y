@@ -1,10 +1,10 @@
 {
-module MegaHappy.Grammar (parseFile) where
+module MegaHappy.Grammar (parseFile, parseString) where
 
 import Expr
 import MegaHappy.Parser
 
-import qualified Data.ByteString as BS
+import qualified Data.ByteString.Char8 as BS
 import Text.Megaparsec (parseMaybe)
 }
 
@@ -40,6 +40,11 @@ parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
     content <- BS.readFile filepath
     pure $ parseMaybe parser content
+
+parseString :: String -> Maybe Expr
+parseString str =
+    let input = BS.pack str
+    in  parseMaybe parser input
 
 parseError :: Token -> Parser a
 parseError _ = fail "parse error"

@@ -5,7 +5,7 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StrictData #-}
 
-module Handwritten.Normal (parseFile, Pos (..)) where
+module Handwritten.Normal (parseFile, parseString, Pos (..)) where
 
 import Control.Monad.Trans.State.Strict
 import Data.ByteString.Char8 qualified as BS
@@ -17,6 +17,10 @@ import Expr
 
 parseFile :: FilePath -> IO (Maybe Expr)
 parseFile path = parse expr <$> BS.readFile path
+
+
+parseString :: String -> Maybe Expr
+parseString = parse expr . BS.pack
 
 
 data Token where

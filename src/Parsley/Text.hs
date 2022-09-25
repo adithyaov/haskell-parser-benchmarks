@@ -6,7 +6,7 @@
 {-# OPTIONS_GHC -Wno-unused-local-binds #-}
 {-# OPTIONS_GHC -Wno-unused-matches #-}
 
-module Parsley.Text (parseFile) where
+module Parsley.Text (parseFile, parseString) where
 
 import Data.Text qualified as T
 import Data.Text.IO qualified as T
@@ -24,3 +24,6 @@ parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
     contents <- T.readFile filepath
     pure $ parseText contents
+
+parseString :: String -> Maybe Expr
+parseString = parseText . T.pack

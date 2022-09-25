@@ -2,9 +2,9 @@
 {-# LANGUAGE Strict #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module FlatParse (parseFile) where
+module FlatParse (parseFile, parseString) where
 
-import Data.ByteString qualified as BS
+import Data.ByteString.Char8 qualified as BS
 import Data.Char (isSpace)
 import Data.Void
 import FlatParse.Basic qualified as F
@@ -61,3 +61,10 @@ parseFile filepath = do
         F.runParser (expr <* F.eof) content & \case
             F.OK ans _ -> Just ans
             _ -> Nothing
+
+
+parseString :: String -> Maybe Expr
+parseString str =
+    case F.runParser (expr <* F.eof) (BS.pack str) of
+        F.OK ans _ -> Just ans
+        _ -> Nothing

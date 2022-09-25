@@ -6,9 +6,9 @@
 {-# OPTIONS_GHC -Wno-unused-local-binds #-}
 {-# OPTIONS_GHC -Wno-unused-matches #-}
 
-module Parsley.ByteString (parseFile) where
+module Parsley.ByteString (parseFile, parseString) where
 
-import Data.ByteString qualified as BS
+import Data.ByteString.Char8 qualified as BS
 
 import Expr
 import Parsley (parse)
@@ -23,3 +23,6 @@ parseFile :: FilePath -> IO (Maybe Expr)
 parseFile filepath = do
     contents <- BS.readFile filepath
     pure $ parseByteString contents
+
+parseString :: String -> Maybe Expr
+parseString = parseByteString . BS.pack

@@ -1,4 +1,4 @@
-module UUParsingLib (parseFile) where
+module UUParsingLib (parseFile, parseString) where
 
 import Data.Text qualified as T
 import Data.Text.IO qualified as T
@@ -47,3 +47,9 @@ parseFile filepath = do
     pure $ case parse_h ((,) <$> expr <*> pEnd) (createStr 0 content) of
              (x, []) -> Just x
              _ -> Nothing
+
+parseString :: String -> Maybe Expr
+parseString str =
+    case parse_h ((,) <$> expr <*> pEnd) $ createStr 0 $ T.pack str of
+        (x, []) -> Just x
+        _ -> Nothing

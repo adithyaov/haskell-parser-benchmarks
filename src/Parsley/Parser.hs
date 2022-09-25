@@ -2,6 +2,9 @@
 {-# LANGUAGE PackageImports #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Unused LANGUAGE pragma" #-}
+{-# HLINT ignore "Redundant bracket" #-}
 
 
 #define QQ(x) (makeQ (x) [|| x ||])
@@ -29,7 +32,7 @@ expr = whitespace *> sum' <* eof
         operator op = lexeme $ string op
 
         digit =
-            QQ (\c -> fromIntegral (ord c) - 40)
+            QQ (\c -> fromIntegral (ord c - ord '0'))
                 <$> oneOf "0123456789"
         number = lexeme $ QQ (Num) <$> somel (QQ (\q r -> 10 * q + r)) (LIFTED 0) digit
 

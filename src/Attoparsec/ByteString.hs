@@ -1,11 +1,11 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Attoparsec.ByteString (parseFile) where
+module Attoparsec.ByteString (parseFile, parseString) where
 
 import Control.Applicative
 import Data.Attoparsec.ByteString.Char8 hiding (isSpace)
-import Data.ByteString qualified as BS
+import Data.ByteString.Char8 qualified as BS
 import Data.Char (isSpace)
 import Data.Function ((&))
 
@@ -55,5 +55,13 @@ parseFile filepath = do
     content <- BS.readFile filepath
     pure $
         parseOnly expr content & \case
+            Left _ -> Nothing
+            Right a -> Just a
+
+
+parseString :: String -> Maybe Expr
+parseString str =
+    let input = BS.pack str
+     in case parseOnly expr input of
             Left _ -> Nothing
             Right a -> Just a

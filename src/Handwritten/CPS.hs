@@ -4,7 +4,7 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE StrictData #-}
 
-module Handwritten.CPS (parseFile, Pos (..)) where
+module Handwritten.CPS (parseFile, parseString, Pos (..)) where
 
 import Data.ByteString.Char8 qualified as BS
 import Data.Char (isDigit, ord)
@@ -15,6 +15,10 @@ import Expr
 
 parseFile :: FilePath -> IO (Maybe Expr)
 parseFile path = parse expr <$> BS.readFile path
+
+
+parseString :: String -> Maybe Expr
+parseString = parse expr . BS.pack
 
 
 data Token where

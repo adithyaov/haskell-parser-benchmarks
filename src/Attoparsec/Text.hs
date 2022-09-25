@@ -1,12 +1,13 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE Strict #-}
 
-module Attoparsec.Text (parseFile) where
+module Attoparsec.Text (parseFile, parseString) where
 
 import Control.Applicative
 import Data.Attoparsec.Text
 import Data.Char (isSpace)
 import Data.Function ((&))
+import Data.Text qualified as T
 import Data.Text.IO qualified as T
 
 import Expr
@@ -55,5 +56,13 @@ parseFile filepath = do
     content <- T.readFile filepath
     pure $
         parseOnly expr content & \case
+            Left _ -> Nothing
+            Right a -> Just a
+
+
+parseString :: String -> Maybe Expr
+parseString str =
+    let input = T.pack str
+     in case parseOnly expr input of
             Left _ -> Nothing
             Right a -> Just a
