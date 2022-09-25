@@ -1,10 +1,10 @@
 stages:
-    - building
-    - benching
+    - build-stage
+    - bench-stage
 
 build:
     image: haskell:9.2-slim-buster
-    stage: building
+    stage: build-stage
     artifacts:
         paths:
             - haskell-parsing-benchmarks
@@ -31,7 +31,7 @@ build:
 
 bench:
     image: debian:buster-slim
-    stage: benching
+    stage: bench-stage
     dependencies:
         - build
     artifacts:

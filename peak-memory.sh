@@ -2,7 +2,7 @@
 
 cabal build bench:haskell-parsing-benchmarks
 
-# This is needed for Gitlab CI, so I don't need cabal in the benching stage
+# This is needed for Gitlab CI, so I don't need cabal in the bench-stage
 if [ -z "$1" ]; then
     benchmark_exe="$(cabal list-bin bench:haskell-parsing-benchmarks)"
 else
