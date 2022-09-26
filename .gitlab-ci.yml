@@ -6,6 +6,7 @@ stages:
 build:
     image: haskell:9.2-slim-buster
     stage: build-stage
+    needs: []
     artifacts:
         paths:
             - haskell-parsing-benchmarks
@@ -34,8 +35,7 @@ build:
 test:
     image: debian:buster-slim
     stage: test-stage
-    dependencies:
-        - build
+    needs: ["build"]
     artifacts:
         paths:
             - results-tests.txt
@@ -47,8 +47,7 @@ test:
 bench:
     image: debian:buster-slim
     stage: bench-stage
-    dependencies:
-        - build
+    needs: ["build"]
     artifacts:
         paths:
             - results-time.txt
