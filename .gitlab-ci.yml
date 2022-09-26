@@ -18,6 +18,7 @@ build:
         key: cabal-store
         paths:
             - cabal-store/
+            - dist-newstyle/
 
     before_script:
         - apt-get update && apt-get install -y llvm-11-tools clang-11 python3
