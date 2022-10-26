@@ -13,14 +13,12 @@ library
                         megaparsec ^>= 9.2,
                         text ^>= 2.0,
                         array ^>= 0.5,
-                        -- flatparse ^>= 0.3,
+                        flatparse ^>= 0.3,
                         uu-parsinglib ^>= 2.9.2,
                         Earley ^>= 0.13,
                         ListLike ^>= 4.7,
-                        streamly,
-                        streamly-core,
-                        exceptions,
-                        fusion-plugin
+                        streamly-core ^>= 0.1.0,
+                        fusion-plugin ^>= 0.2
       ghc-options:      -Wall
                         -Wextra
       exposed-modules:  Handwritten
@@ -31,9 +29,9 @@ library
                         Megaparsec.ByteString
                         Parsec.Text
                         Parsec.ByteString
-                        -- FlatParse
-                        -- Alex
-                        -- Happy
+                        FlatParse
+                        Alex
+                        Happy
                         UUParsingLib
                         Earley
                         Streamly
@@ -51,7 +49,7 @@ benchmark haskell-parsing-benchmarks
                       bytestring ^>= 0.11,
                       text ^>= 2.0,
                       haskell-parsing-benchmarks,
-                      fusion-plugin
+                      fusion-plugin >= 0.2.5
     ghc-options: -O2
                  -fdicts-strict
                  -fspec-constr-recursive=16
