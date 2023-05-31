@@ -14,7 +14,7 @@ library
                         megaparsec ^>= 9.2,
                         text,
                         array ^>= 0.5,
-                        flatparse ^>= 0.3,
+                        flatparse ^>= 0.4.1,
                         uu-parsinglib ^>= 2.9.2,
                         Earley ^>= 0.13,
                         ListLike ^>= 4.7,

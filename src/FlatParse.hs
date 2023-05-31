@@ -33,13 +33,13 @@ prod = chainl1 atom (Bin <$> op)
 {-# INLINE atom #-}
 atom :: Parser Expr
 atom =
-    (Num . fromIntegral <$> lexeme F.readInt)
+    (Num . fromIntegral <$> lexeme F.anyAsciiDecimalWord)
         F.<|> (lexeme $(F.char '(') *> expr <* lexeme $(F.char ')'))
 
 
 {-# INLINE lexeme #-}
 lexeme :: Parser a -> Parser a
-lexeme p = p <* F.many_ (F.satisfy_ isSpace)
+lexeme p = p <* F.skipMany (F.skipSatisfy isSpace)
 
 
 {-# INLINE chainl1 #-}
