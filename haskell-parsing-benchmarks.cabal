@@ -6,7 +6,7 @@ author:             Finn Bender
 maintainer:         mailobender77x@gmail.com
 
 library
-      build-depends:    base >=4.15.0.0,
+      build-depends:    base >=4.16.0.0,
                         bytestring ^>= 0.11,
                         transformers ^>= 0.5,
                         parsec ^>= 3.1,
